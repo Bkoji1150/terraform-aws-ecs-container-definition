@@ -1,3 +1,16 @@
+
+terraform {
+  required_version = ">=1.3.1"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+
 locals {
   # Sort environment variables so terraform will not try to recreate on each plan/apply
   env_vars_keys        = var.map_environment != null ? keys(var.map_environment) : var.environment != null ? [for m in var.environment : lookup(m, "name")] : []
