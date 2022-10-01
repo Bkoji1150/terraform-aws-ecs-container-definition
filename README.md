@@ -9,7 +9,7 @@ This module was built using [Jenkins-SonarQube-Terraform](git@github.com:Bkoji11
 ## Usage multiple task definition
 ```hcl
 module "container" {
-  source          = "../../"
+  source          = "git::git@github.com:Bkoji1150/terraform-aws-ecs-container-definition.git?ref=v1.0.0"
   container_name  = "name"
   container_image = "cloudposse/geodesic"
 
@@ -51,7 +51,7 @@ module "container" {
 ```hcl
 
 module "container_definition" {
-  source = "git::git@github.com:Bkoji1150/terraform-aws-ecs-container-definition.git"
+  source = "git::git@github.com:Bkoji1150/terraform-aws-ecs-container-definition.git?ref=v1.0.0"
 
   container_name = var.container_name
   container_image = lower(var.container_image_source) == "ecr" ? format(
