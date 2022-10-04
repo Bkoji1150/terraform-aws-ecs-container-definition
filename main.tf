@@ -28,14 +28,6 @@ locals {
     }
   ]
 
-  mount_points = length(var.mount_points) > 0 ? [
-    for mount_point in var.mount_points : {
-      containerPath = lookup(mount_point, "containerPath")
-      sourceVolume  = lookup(mount_point, "sourceVolume")
-      readOnly      = tobool(lookup(mount_point, "readOnly", false))
-    }
-  ] : var.mount_points
-
   # https://www.terraform.io/docs/configuration/expressions.html#null
   final_environment_vars = length(local.sorted_environment_vars) > 0 ? local.sorted_environment_vars : null
   final_secrets_vars     = length(local.sorted_secrets_vars) > 0 ? local.sorted_secrets_vars : null
@@ -66,7 +58,7 @@ locals {
     command                = var.command
     workingDirectory       = var.working_directory
     readonlyRootFilesystem = var.readonly_root_filesystem
-    mountPoints            = local.mount_points
+    mountPoints            = var.mount_points
     dnsServers             = var.dns_servers
     dnsSearchDomains       = var.dns_search_domains
     ulimits                = var.ulimits
